@@ -1,0 +1,77 @@
+<launch>
+      <arg name="init_x" value="5.0"/>
+      <arg name="init_y" value="0.0"/>
+      <arg name="init_z" value="2.0"/> 
+
+      <node pkg="so3_quadrotor_simulator" type="quadrotor_simulator_so3" name="drone_sim" output="screen">
+            <param name="rate/odom" value="200.0"/>
+            <param name="simulator/init_state_x" value="$(arg init_x)"/>
+            <param name="simulator/init_state_y" value="$(arg init_y)"/>
+            <param name="simulator/init_state_z" value="$(arg init_z)"/>
+
+            <remap from="~odom" to="dronesim_odom"/>
+            <remap from="~cmd" to="so3_cmd"/>       
+      </node>
+
+      <node pkg="nodelet" type="nodelet" args="standalone so3_control/SO3ControlNodelet" name="so3_control" required="true" output="screen">
+            <remap from="~odom" to="dronesim_odom"/>
+            <remap from="~position_cmd" to="drone_poscmd"/>
+            <remap from="~motors" to="motors"/>
+            <remap from="~corrections" to="corrections"/>
+            <remap from="~so3_cmd" to="so3_cmd"/>
+            <rosparam file="$(find so3_control)/config/gains_hummingbird.yaml"/>
+            <rosparam file="$(find so3_control)/config/corrections_hummingbird.yaml"/>
+            <param name="mass" value="0.98"/>
+            <param name="use_angle_corrections " value="false"/>
+            <param name="use_external_yaw "      value="false"/>
+            <param name="gains/rot/z" value="1.0"/>    
+            <param name="gains/ang/z" value="0.1"/>        
+      </node>  
+
+      <node pkg="odom_visualization" type="odom_visualization" name="drone_visual" output="screen">
+            <remap from="~odom" to="dronesim_odom"/>
+            <param name="color/a" value="1.0"/>    
+            <param name="color/r" value="0.0"/>        
+            <param name="color/g" value="0.0"/>        
+            <param name="color/b" value="1.0"/>       
+            <param name="covariance_scale" value="100.0"/>       
+            <param name="robot_scale" value="1.0"/>
+      </node>
+
+      <node pkg="rm_infantry" type="rm_keyboard_joy_teleop.py" name="joy_node"  output="screen"/>
+
+      <!-- <node pkg="joy" type="joy_node" name="joy_node"  output="screen"/> -->
+      <node pkg="usercmd" type="joylistener" name="joylistener"  output="screen"/>
+
+      <node pkg="usercmd" type="maincmd" name="maincmd" output="screen"/>
+      <node pkg="rm_infantry" type="rm_sim" name="rm_sim" output="screen"> 
+            <remap from="rmsim_gmstate" to="rm_gmstate"/>
+            <remap from="rmsim_chstate" to="rm_chstate"/>
+         
+      </node>
+
+      <node pkg="rm_infantry" type="cap_sim" name="cap_sim" output="screen">
+            <remap from="rmsim_chstate" to="rm_chstate"/>
+            <remap from="dronesim_odom" to="dronesim_odom"/>
+
+      </node>
+
+
+      <node pkg="rm_infantry" type="rm_visual" name="rm_visual" output="screen">
+            <remap from="gmstate" to="rm_gmstate"/>
+      </node>
+
+
+      <node pkg="rm_infantry" type="rm_firectrl" name="rm_firectrl" output="screen">
+            <!-- <remap from="gmstate" to="rmsim_gmstate"/> -->
+      </node>
+
+      <node pkg="bullet_traj_est" type="sim_node" name = "sim_node" output="screen">
+            <param name="cam_param_yaml_path" value="$(find bullet_traj_est)/config/camera.yaml" />
+            <param name="cam_hz" value="40" />
+            <param name="cam_cov" value="4" />
+            <param name="cam_depth_hz" value="40" />
+            <param name="cam_cov_depth" value="0.1" />
+      </node>
+      <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bullet_traj_est)/launch/sim_drone.rviz" required="true" />
+</launch>

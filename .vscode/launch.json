@@ -1,0 +1,37 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "cloud_node",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/devel/lib/detector/detector_node",
+            // fill previous line with the node you want to debug
+            "args": [
+                "_model:=RS16",
+                "_resolution_type:=1.0cm"
+            ], // parameter to this node 
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "preLaunchTask": "prerun",
+            "MIMode": "gdb",
+            "avoidWindowsConsoleRedirection": true,
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "ROS: Launch",
+            "type": "ros",
+            "request": "launch",
+            "target": "${workspaceFolder}/src/FAST-event-detector/launch/debug_djiros_vicon.launch", // <<< Configure path to your launch file
+            "preLaunchTask": "core", // <<< This is the task that will run before debugging starts
+        }
+    ]
+}

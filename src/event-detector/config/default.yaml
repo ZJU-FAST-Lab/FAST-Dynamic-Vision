@@ -1,0 +1,6 @@
+raw_image_topic: "/image_raw"
+event_topic: "/dvs/events"
+imu_topic: "/mavros/imu/data"
+depth_topic: "/camera/depth/image_rect_raw"
+odometry_topic: "/vicon_imu_ekf_odom"
+      

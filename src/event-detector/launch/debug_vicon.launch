@@ -1,0 +1,9 @@
+<launch> 
+    <node pkg="detector" type="detector_node" name="detector_node" output="screen">
+        <rosparam command="load" file="$(find detector)/config/default.yaml" />
+    </node>         
+    <arg name="bag_name" value="test_djiros_vicon" />
+    <arg name="r" default="0.5" />
+<!--     <node pkg="rosbag" type="play" name="rosbag_play"  -->
+<!--         args="-l $(find detector)/dataset/$(arg bag_name).bag -r $(arg r)" /> -->
+</launch>

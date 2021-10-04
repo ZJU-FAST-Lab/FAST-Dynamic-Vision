@@ -1,0 +1,27 @@
+<launch>
+    <node pkg="detector" type="detector_node" name="detector_node" output="screen">
+        <rosparam command="load" file="$(find detector)/config/default.yaml" />
+    </node>      
+    
+    <node pkg="bullet_traj_est" type="bullet_estimation" name="estimation" output="screen">
+        <remap from="~odom" to="/vicon_imu_ekf_odom" />
+        <param  name="cam_param_yaml_path" value="$(find bullet_traj_est)/config/camera.yaml" />
+        <param name="visualization_on" value="true" />
+        <remap from="~trajectory" to="/planning/trajectory" />
+        <!-- <param  name="cam_depth_param_yaml_path" value="$(find bullet_traj_est)/config/camera.yaml" /> -->
+    </node> 
+    
+
+    <node pkg="odom_visualization" type="odom_visualization" name="drone_visual" output="screen">
+        <remap from="~odom" to="/vicon_imu_ekf_odom"/>
+        <param name="color/a" value="1.0"/>    
+        <param name="color/r" value="0.0"/>        
+        <param name="color/g" value="0.0"/>        
+        <param name="color/b" value="1.0"/>       
+        <param name="covariance_scale" value="100.0"/>       
+        <param name="robot_scale" value="1.0"/>
+    </node> 
+
+    
+
+</launch>

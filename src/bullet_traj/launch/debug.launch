@@ -1,0 +1,7 @@
+<launch>
+
+      <node pkg="bullet_traj_est" type="bullet_estimation" name = "bullet_estimation" output="screen">
+            <param name="cam_param_yaml_path" value="$(find bullet_traj_est)/config/camera.yaml" />
+      </node>
+
+</launch>
