@@ -32,7 +32,7 @@ sudo apt install libeigen3-dev build-essential libopencv-contrib-dev
 
 **Step 2**: Clone the thie repo
 ```
-git clone https://github.com/ZJU-FAST-Lab/FAST-Dynamic-Vision.git --branch=master
+git clone https://github.com/ZJU-FAST-Lab/FAST-Dynamic-Vision.git --branch=main
 ```
 
 **Step 3**: build this project
