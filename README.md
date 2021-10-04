@@ -13,16 +13,13 @@
 ![avoidance](figs/howering_avoidance.gif)
 ![avoidance](figs/moving_avoidance_720p.gif)
 
-## 1. File Structure
+## 1. Dataset branch
 
-- **event-detector**: Key modules with event processing, depth estimation, motion compensation and object detection.
-- **bullet_traj**: modules for trajectory estimation in 3D world frame.
+This branch contains dataset you can use to test our code.
 
 ## 2. Setup
 
-**Requirement**: Ubuntu 18.04 with ros-desktop-full installation; [**Ceres Solver**](http://ceres-solver.org/installation.html); OpenCV 3; [opencv_contrib](https://github.com/opencv/opencv_contrib)
-
-> NOTION: If you are using Ubuntu 20.04 and failed to build this project with some linking error, please edit `CMakeLists.txt` and specify `OpenCV 4` .
+**Requirement**: ubuntu 18.04, or higher with ros-desktop-full installation; [**Ceres Solver**](http://ceres-solver.org/installation.html); OpenCV; [open_contrib](https://github.com/opencv/opencv_contrib)
 
 **Step 1**: Installation
 
@@ -32,7 +29,7 @@ sudo apt install libeigen3-dev build-essential libopencv-contrib-dev
 
 **Step 2**: Clone the thie repo
 ```
-git clone https://github.com/ZJU-FAST-Lab/FAST-Dynamic-Vision.git --branch=master
+git clone https://github.com/ZJU-FAST-Lab/FAST-Dynamic-Vision.git --branch=main
 ```
 
 **Step 3**: build this project
@@ -43,28 +40,39 @@ catkin_make
 
 ## 3. Run a simple demo
 
-Please clone branch `dataset` to use our demo dataset. It was recorded via **DVXplorer**, which provides 640x480 resolution.
+> Please clone branch `dataset` to use our demo data. We use [Git Large File Storage](https://git-lfs.github.com/) to store these demos. If you didn't install this, you can refer to [this](https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage) for more information.
+
+```
+git lfs clone https://github.com/ZJU-FAST-Lab/FAST-Dynamic-Vision.git --branch=dataset
+```
 
 ### 3.1 Event-based motion compensation and object detection
 
-This demo shows the performance of object detection and tracking algorithms.
+This demo shows the performance of object detection algorithms.
 
 ```
 source devel/setup.bash
 roslaunch detector detection.launch
 ```
 
+```
+rosbag play ./dataset/event_detector/test_mavros_vins.bag
+```
+
+![img](figs/test_demo.gif)
+
 ### 3.2 Moving ball trajectory estimation under motion-cap system
 
-This demo shows detect and estimate the 3D trajectory of a throwing ball utilizing event and depth camera. The ground truth of the ball trajectory is captured by Vicon Motion Capture system.
+This demo shows detect and estimate the trajectory of a throwing ball utilizing event and depth camera. The ground truth of the ball trajectory is captured by Vicon Motion Capture system.
 
 ```
 source devel/setup.bash
 roslaunch bullet_traj_est demo_traj_est_rviz.launch
 ```
 
-
-![img](figs/test_demo.gif)
+```
+rosbag play ./dataset/traj_est/mocap_traj_est_demo_01.bag
+```
 
 
 ## 4. Licence

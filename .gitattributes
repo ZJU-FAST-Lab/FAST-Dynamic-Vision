@@ -1,0 +1,4 @@
+dataset/traj_est/mocap_traj_est_demo_02.bag filter=lfs diff=lfs merge=lfs -text
+dataset/traj_est/mocap_traj_est_demo_03.bag filter=lfs diff=lfs merge=lfs -text
+dataset/traj_est/mocap_traj_est_demo_01.bag filter=lfs diff=lfs merge=lfs -text
+dataset/event_detector/test_vins.bag filter=lfs diff=lfs merge=lfs -text

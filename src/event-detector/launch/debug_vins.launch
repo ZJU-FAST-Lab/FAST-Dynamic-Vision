@@ -1,8 +1,0 @@
-<launch> 
-    <node pkg="detector" type="detector_node" name="detector_node" output="screen">
-        <rosparam command="load" file="$(find detector)/config/vins.yaml" />
-    </node>         
-    <arg name="bag_name" value="test_mavros_vins" />
-<!--     <node pkg="rosbag" type="play" name="rosbag_play"  -->
-<!--         args="-l $(find detector)/dataset/$(arg bag_name).bag" /> -->
-</launch>

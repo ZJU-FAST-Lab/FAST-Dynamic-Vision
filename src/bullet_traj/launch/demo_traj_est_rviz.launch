@@ -1,4 +1,0 @@
-<launch>
-    <include file="$(find bullet_traj_est)/launch/traj_estimate.launch" />
-    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find bullet_traj_est)/rviz/traj_vis.rviz" />
-</launch>
