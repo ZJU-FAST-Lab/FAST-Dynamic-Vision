@@ -40,13 +40,24 @@ catkin_make
 
 ## 3. Run a simple demo
 
+### 3.1 Download demo dataset
+
+You can download the demo dataset from google drive. Please use [this link](https://drive.google.com/drive/folders/1_nygPV4V6v9VK0P6bNpoJ2ZWZgi0rwmp?usp=sharing) to download.
+
+```
+https://drive.google.com/drive/folders/1_nygPV4V6v9VK0P6bNpoJ2ZWZgi0rwmp?usp=sharing
+```
+
+If above link is not available, you can use git lfs to download dataset which is stored in this branch.
+
 > Please clone branch `dataset` to use our demo data. We use [Git Large File Storage](https://git-lfs.github.com/) to store these demos. If you didn't install this, you can refer to [this](https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage) for more information.
 
 ```
 git lfs clone https://github.com/ZJU-FAST-Lab/FAST-Dynamic-Vision.git --branch=dataset
 ```
 
-### 3.1 Event-based motion compensation and object detection
+### 3.2 Run this demo
+#### 3.2.1 Event-based motion compensation and object detection
 
 This demo shows the performance of object detection algorithms.
 
@@ -61,7 +72,7 @@ rosbag play ./dataset/event_detector/test_mavros_vins.bag
 
 ![img](figs/test_demo.gif)
 
-### 3.2 Moving ball trajectory estimation under motion-cap system
+#### 3.2.2 Moving ball trajectory estimation under motion-cap system
 
 This demo shows detect and estimate the trajectory of a throwing ball utilizing event and depth camera. The ground truth of the ball trajectory is captured by Vicon Motion Capture system.
 
